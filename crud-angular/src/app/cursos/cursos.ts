@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Curso } from './modelos/Curso';
 import { AppMaterialImportsTsModule } from '../shared/app-material-imports.ts/app-material-imports.ts-module';
 import { CommonModule } from '@angular/common';
+import { CursoServicos } from './servicos/curso-servicos';
 @Component({
   selector: 'app-cursos',
   standalone: true,
@@ -14,14 +15,13 @@ import { CommonModule } from '@angular/common';
 })
 export class Cursos implements OnInit {
 
-  courses: Curso[] = [
-  { id: '1', name: 'Angular Básico', categoria: 'Frontend' },
-  { id: '2', name: 'Spring Boot', categoria: 'Backend' }
-];
+  courses: Curso[] = [];
 
   displayedColumns: string[] = ['name', 'categoria'];
 
-  constructor() {}
+  constructor(private cursoServicos: CursoServicos) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.courses = this.cursoServicos.list();
+  }
 }
