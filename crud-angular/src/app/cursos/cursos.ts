@@ -1,32 +1,34 @@
-import { Component, OnInit } from '@angular/core';
-import { Curso } from './modelos/Curso';
-import { AppMaterialImportsTsModule } from '../shared/app-material-imports.ts/app-material-imports.ts-module';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CursoServicos } from './servicos/curso-servicos';
+import { MatTableModule } from '@angular/material/table';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatCardModule } from '@angular/material/card';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Observable } from 'rxjs';
+import { Curso } from './modelos/Curso';
+import { CursoServicos } from './servicos/curso-servicos';
+
 @Component({
   selector: 'app-cursos',
   standalone: true,
   imports: [
     CommonModule,
-    AppMaterialImportsTsModule
-],
+    MatTableModule,
+    MatToolbarModule,
+    MatCardModule,
+    MatProgressSpinnerModule
+  ],
   templateUrl: './cursos.html',
   styleUrls: ['./cursos.scss'],
 })
-export class Cursos implements OnInit {
+export class Cursos {
 
-  courses: Observable<Curso[] | null>;
+  // 🔥 Aqui está a tipagem correta — o MatTable aceita perfeitamente
+  courses$: Observable<Curso[]>;
 
-  displayedColumns: string[] = ['name', 'categoria'];
+  displayedColumns = ['name', 'categoria'];
 
   constructor(private cursoServicos: CursoServicos) {
-
-    this.courses = this.cursoServicos.list();
-
-  }
-
-  ngOnInit(): void {
-
+    this.courses$ = this.cursoServicos.list();
   }
 }

@@ -1,9 +1,29 @@
 @use '@angular/material' as mat;
 
-// Customize the entire app. Change :root to your selector if you want to scope the styles.
+@include mat.core();
+
+$custom-theme: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: mat.$blue-palette,
+    tertiary: mat.$red-palette,
+  ),
+  typography: (
+    brand-family: 'Poppins, Roboto, sans-serif',
+    plain-family: 'Poppins, Roboto, sans-serif',
+    bold-weight: 700,
+    regular-weight: 700,
+  ),
+  density: (
+    scale: 0,
+  ),
+));
+
+@include mat.all-component-themes($custom-theme);
+
 :root {
   @include mat.toolbar-overrides((
-    container-background-color: rgb(43, 0, 255),
-    container-text-color: rgb(249, 250, 250),
+    container-background-color: #3f45b5,
+    container-text-color: #f8f5f6,
   ));
 }
